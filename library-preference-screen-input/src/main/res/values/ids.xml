@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item type="id" name="pref_input_string" />
+    <item type="id" name="pref_input_int" />
+    <item type="id" name="pref_input_long" />
+    <item type="id" name="pref_input_float" />
+    <item type="id" name="pref_input_double" />
+
+</resources>

@@ -1,0 +1,84 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlinx-serialization'
+}
+
+android {
+
+    compileSdkVersion setup.compileSdk
+
+    buildFeatures {
+        viewBinding setup.enableViewBinding
+    }
+
+    defaultConfig {
+        minSdkVersion setup.minSdk
+        targetSdkVersion setup.targetSdk
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+dependencies {
+
+    // ------------------------
+    // Kotlin
+    // ------------------------
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlinVersion}"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:${androidx.kotlinSerialization}"
+
+    // ------------------------
+    // AndroidX
+    // ------------------------
+
+    implementation "com.google.android.material:material:${androidx.material}"
+    implementation "androidx.recyclerview:recyclerview:${androidx.recyclerview}"
+
+    implementation "androidx.core:core-ktx:${androidx.core}"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:${androidx.lifecycle}"
+
+    // ------------------------
+    // Library
+    // ------------------------
+
+    implementation project(':core')
+    implementation project(':datastore')
+    implementation project(':screen')
+    implementation project(':screen-bool')
+    implementation project(':screen-input')
+    implementation project(':screen-choice')
+    implementation project(':screen-color')
+    implementation project(':screen-slider')
+    implementation project(':screen-image')
+
+    // ------------------------
+    // Dialogs (those are used inside the screen modules as well already!)
+    // ------------------------
+
+    implementation "com.github.MFlisar.MaterialDialogs:core:${versions.materialDialogs}"
+    implementation "com.github.MFlisar.MaterialDialogs:dialogs-list:${versions.materialDialogs}"
+
+    // ------------------------
+    // Others
+    // ------------------------
+
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item type="id" name="pref_screen" />
+    <item type="id" name="pref_category" />
+    <item type="id" name="pref_switch" />
+    <item type="id" name="pref_switch_compact" />
+    <item type="id" name="pref_checkbox" />
+    <item type="id" name="pref_button" />
+    <item type="id" name="pref_info" />
+
+</resources>

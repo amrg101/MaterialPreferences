@@ -1,0 +1,35 @@
+ext {
+
+    setup = [
+            compileSdk       : 32,
+            enableViewBinding: true,
+            minSdk           : 21,
+            targetSdk        : 32
+    ]
+
+    androidx = [
+            supportv4          : "1.0.0",
+            fragment           : "1.0.0",
+            appcompat          : "1.2.0",
+            recyclerview       : "1.2.1",
+            material           : "1.7.0-beta01",
+            constraint         : "2.0.2",
+            palette            : "1.0.0",
+            preference         : "1.0.0",
+            core               : "1.8.0",
+            lifecycle          : "2.5.1",
+            datastorePrefs     : "1.0.0",
+            startup            : "1.1.1",
+            kotlinSerialization: "1.1.0"
+    ]
+
+    versions = [
+            kotlinVersion  : "1.7.20",
+            gradlePlugin   : "7.2.2",
+            mavenVersion   : "2.0",
+
+            lumberjack     : "5.2.5",
+            androidText    : "1.2",
+            materialDialogs: "0.6.0"
+    ]
+}
