@@ -39,7 +39,6 @@
             android:id="@android:id/icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:tint="?android:textColorPrimary"
             tools:src="@drawable/icon_settings_expand" />
     </LinearLayout>
 
