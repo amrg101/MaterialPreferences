@@ -82,4 +82,9 @@ class PreferenceScreen(
     fun notifyItemChanged(item: StorageSetting<*>) {
         adapter.notifyItemChanged(item)
     }
+
+    fun release() {
+        adapter.recyclerView?.adapter= null
+        adapter.recyclerView = null
+    }
 }
