@@ -46,14 +46,6 @@ class CustomSettingsActivity : AppCompatActivity() {
         // ---------------
 
         preferenceScreen = initSettings(savedInstanceState)
-        lifecycleScope.launch{
-            repeat(10000) {
-                delay(5000)
-                savedState = preferenceScreen.lastState
-                preferenceScreen = initSettings(savedInstanceState)
-                Log.d("","refreshing settings..")
-            }
-        }
     }
 
     private fun initSettings(savedInstanceState: Bundle?): PreferenceScreen {
