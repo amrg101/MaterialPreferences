@@ -18,5 +18,5 @@
     android:paddingStart="?listPreferredItemPaddingStart"
     android:paddingTop="16dip"
     android:paddingEnd="?listPreferredItemPaddingEnd"
-    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+    android:textAppearance="?textAppearanceBody2"
     android:textColor="?colorAccent" />
