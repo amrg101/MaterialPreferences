@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.michaelflisar.materialpreferences.preferencescreen.PreferenceScreen
+import com.michaelflisar.materialpreferences.preferencescreen.PreferenceScreenState
 import com.michaelflisar.materialpreferences.preferencescreen.interfaces.IScreenCreator
 
 class SettingsActivity : BaseSettingsActivity() {
@@ -26,10 +27,11 @@ class SettingsActivity : BaseSettingsActivity() {
 
     override fun createScreen(
         savedInstanceState: Bundle?,
+        state: PreferenceScreenState?,
         updateTitle: (title: String) -> Unit
     ): PreferenceScreen {
         data = Data.create(intent)
-        return data.screenProvider.createScreen(this, savedInstanceState, updateTitle)
+        return data.screenProvider.createScreen(this, savedInstanceState, null, updateTitle)
     }
 
     // ----------------

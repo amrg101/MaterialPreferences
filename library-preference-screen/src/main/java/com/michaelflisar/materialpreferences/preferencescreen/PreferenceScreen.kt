@@ -14,10 +14,12 @@ import com.michaelflisar.materialpreferences.preferencescreen.interfaces.Prefere
 import com.michaelflisar.materialpreferences.preferencescreen.recyclerview.PreferenceAdapter
 
 typealias ScreenChangedListener = (subScreenStack: List<PreferenceItem.SubScreen>, stateRestored: Boolean) -> Unit
+typealias PreferenceScreenState = PreferenceAdapter.SavedState
 
 class PreferenceScreen(
     val preferences: List<PreferenceItem>,
     val savedInstanceState: Bundle?,
+    val state: PreferenceScreenState? = null,
     val onScreenChanged: ScreenChangedListener? = null
 ) {
 
@@ -27,6 +29,8 @@ class PreferenceScreen(
 
     private lateinit var adapter: PreferenceAdapter
     private var stateToRestore: PreferenceAdapter.StackEntry? = null
+
+    val lastState: PreferenceScreenState get() = adapter.getSavedState()
 
     fun bind(recyclerView: RecyclerView, fragment: Fragment) {
         bind(recyclerView, fragment.childFragmentManager, fragment)
@@ -39,8 +43,12 @@ class PreferenceScreen(
     fun bind(recyclerView: RecyclerView, fragmentManager: FragmentManager, lifecycleOwner: LifecycleOwner) {
 
         adapter = PreferenceAdapter(fragmentManager, lifecycleOwner, preferences, onScreenChanged)
-        savedInstanceState?.getParcelable<PreferenceAdapter.SavedState>(KEY_ADAPTER_STATE)
-            ?.let(::loadAdapterState)
+         if (state != null) {
+             loadAdapterState(state)
+         } else {
+             savedInstanceState?.getParcelable<PreferenceAdapter.SavedState>(KEY_ADAPTER_STATE)
+                 ?.let(::loadAdapterState)
+         }
 
         recyclerView.apply {
             layoutManager = LinearLayoutManager(recyclerView.context, RecyclerView.VERTICAL, false)

@@ -3,13 +3,17 @@ package com.michaelflisar.materialpreferences.demo.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.lifecycleScope
 import com.michaelflisar.materialpreferences.demo.DemoSettings
 import com.michaelflisar.materialpreferences.demo.settings.DemoSettingsModel
 import com.michaelflisar.materialpreferences.preferencescreen.*
 import com.michaelflisar.materialpreferences.preferencescreen.databinding.PreferenceActivitySettingsBinding
 import com.michaelflisar.materialpreferences.preferencescreen.enums.NoIconVisibility
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class CustomSettingsActivity : AppCompatActivity() {
 
@@ -24,6 +28,7 @@ class CustomSettingsActivity : AppCompatActivity() {
 
     lateinit var binding: PreferenceActivitySettingsBinding
     lateinit var preferenceScreen: PreferenceScreen
+    private var savedState: PreferenceScreenState? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +46,14 @@ class CustomSettingsActivity : AppCompatActivity() {
         // ---------------
 
         preferenceScreen = initSettings(savedInstanceState)
+        lifecycleScope.launch{
+            repeat(10000) {
+                delay(5000)
+                savedState = preferenceScreen.lastState
+                preferenceScreen = initSettings(savedInstanceState)
+                Log.d("","refreshing settings..")
+            }
+        }
     }
 
     private fun initSettings(savedInstanceState: Bundle?): PreferenceScreen {
@@ -66,7 +79,8 @@ class CustomSettingsActivity : AppCompatActivity() {
         val screen = screen {
 
             // set up screen
-            state = savedInstanceState
+            state = savedState
+            savedInstanceSate = savedInstanceState
             onScreenChanged = { subScreenStack, stateRestored ->
                 val breadcrumbs =
                     subScreenStack.joinToString(" > ") { it.title.get(this@CustomSettingsActivity) }

@@ -54,12 +54,14 @@ object DemoSettings {
         override fun createScreen(
             activity: AppCompatActivity,
             savedInstanceState: Bundle?,
+            state: PreferenceScreenState?,
             updateTitle: (title: String) -> Unit
         ): PreferenceScreen {
             return screen {
 
                 // set up screen
-                state = savedInstanceState
+                this.state = state
+                savedInstanceSate = savedInstanceState
                 onScreenChanged = { subScreenStack, stateRestored ->
                     val breadcrumbs =
                         subScreenStack.joinToString(" > ") { it.title.get(activity) }

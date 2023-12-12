@@ -66,7 +66,8 @@ class Screen {
         private val preferences: MutableList<PreferenceItem> = ArrayList()
         private var screen: PreferenceScreen? = null
 
-        var state: Bundle? = null
+        var savedInstanceSate: Bundle? = null
+        var state: PreferenceScreenState? = null
         var onScreenChanged: ScreenChangedListener? = null
 
         fun notifyItemChanged(item: PreferenceItem) {
@@ -78,7 +79,7 @@ class Screen {
         }
 
         fun build(): PreferenceScreen {
-            screen = PreferenceScreen(preferences, state, onScreenChanged)
+            screen = PreferenceScreen(preferences, savedInstanceSate, state, onScreenChanged)
             return screen!!
         }
 
