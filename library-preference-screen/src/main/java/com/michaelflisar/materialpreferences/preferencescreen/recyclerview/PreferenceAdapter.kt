@@ -185,25 +185,31 @@ class PreferenceAdapter(
     private fun getCurrentSubScreens(): List<SubScreen> {
         val screens = ArrayList<SubScreen>()
         if (stack.size > 0) {
-            var p = preferences[stack[0].index] as SubScreen
-            screens.add(p)
-            stack.asSequence().drop(1).forEach {
-                p = p.preferences[it.index] as SubScreen
+            val baseSubScreenIndex = stack[0].index
+            if (baseSubScreenIndex != -1) {
+                var p = preferences[baseSubScreenIndex] as SubScreen
                 screens.add(p)
+                stack.asSequence().drop(1).forEach { childrenSubScreen ->
+                    val childrenSubScreenIndex = childrenSubScreen.index
+                    if (childrenSubScreenIndex != -1) {
+                        p = p.preferences[childrenSubScreenIndex] as SubScreen
+                        screens.add(p)
+                    }
+                }
             }
         }
         return screens
     }
 
     private fun getCurrentSubScreenPreferencesUnfiltered(): List<PreferenceItem> {
-        if (stack.size == 0) {
-            return preferences
+        return if (stack.size == 0) {
+            preferences
         } else {
             var p = preferences[stack[0].index] as SubScreen
             stack.asSequence().drop(1).forEach {
                 p = p.preferences[it.index] as SubScreen
             }
-            return p.preferences
+            p.preferences
         }
     }
 
@@ -228,6 +234,7 @@ class PreferenceAdapter(
         }
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun getSavedState(): SavedState {
         val fullStack = stack.clone() as Stack<StackEntry>
         fullStack.push(StackEntry.create(-1, recyclerView))
