@@ -206,8 +206,11 @@ class PreferenceAdapter(
             preferences
         } else {
             var p = preferences[stack[0].index] as SubScreen
-            stack.asSequence().drop(1).forEach {
-                p = p.preferences[it.index] as SubScreen
+            stack.asSequence().drop(1).forEach { childrenSubScreen ->
+                val childrenSubScreenIndex = childrenSubScreen.index
+                if (childrenSubScreenIndex != -1) {
+                    p = p.preferences[childrenSubScreenIndex] as SubScreen
+                }
             }
             p.preferences
         }
